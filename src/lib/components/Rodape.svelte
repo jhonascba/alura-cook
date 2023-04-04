@@ -1,6 +1,6 @@
 <footer>
     <img src="/icones/registered.png" alt="Ícone marca registrada" class="registered">
-    Copyright Alura Cook - 2022
+    Copyright Alura Cook - 2023
 </footer>
 
 <style>

@@ -1,11 +1,6 @@
 <script lang="ts">
     import Tag from "$component/Tag.svelte";
-    import {createEventDispatcher} from "svelte";
-
-    const dispatch = createEventDispatcher<{
-        adicionarIngrediente: string;
-        removerIngrediente: string;
-    }>();
+    import {minhaLista} from "../stores/minhaLista";
 
     export let ingrediente: string;
 
@@ -15,9 +10,9 @@
         selecionado = !selecionado;
 
         if (selecionado) {
-            dispatch('adicionarIngrediente', ingrediente);
+            minhaLista.adicionarIngrediente(ingrediente);
         } else {
-            dispatch('removerIngrediente', ingrediente);
+            minhaLista.removerIngrediente(ingrediente);
         }
     }
 </script>

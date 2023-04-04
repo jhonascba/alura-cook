@@ -1,81 +1,52 @@
 <script lang="ts">
     import "../app.css";
-    import Cabecalho from "$lib/components/Cabecalho.svelte";
     import MinhaLista from "$lib/components/MinhaLista.svelte";
     import Titulo from "$component/Titulo.svelte";
     import categorias from "$lib/json/categorias.json";
     import Categoria from "$component/Categoria.svelte";
     import Tag from "$component/Tag.svelte";
-    import Rodape from "$component/Rodape.svelte";
+    import {minhaLista} from "../lib/stores/minhaLista";
 
-    let minhaLista: string[] = [];
-
-    function adicionarIngrediente(evento: CustomEvent<string>) {
-        const ingrediente = evento.detail;
-        minhaLista = [...minhaLista, ingrediente];
-    }
-
-    function removerIngrediente(evento: CustomEvent<string>) {
-        const ingrediente = evento.detail;
-        minhaLista = minhaLista.filter((item) => item !== ingrediente)
-    }
 </script>
 
 <svelte:head>
     <title>Alura Cook</title>
 </svelte:head>
 
-<div class="container-principal">
-    <Cabecalho/>
-    <div class="estilo-principal">
-        {#if minhaLista.length}
-            <div class="minha-lista-container">
-                <MinhaLista ingredientes={minhaLista}/>
-                <div class="divisoria"></div>
-            </div>
-        {/if}
-        <main>
-            <Titulo tag="h1">Ingredientes</Titulo>
-            <div class="info">
-                <p>
-                    Selecione abaixo os ingredientes que você deseja usar nesta refeição:
-                </p>
-                <p>
-                    *Atenção: consideramos que você tenha em casa sal, pimenta e água.
-                </p>
-            </div>
 
-            <ul class="categorias">
-                {#each categorias as categoria (categoria.nome)}
-                    <Categoria {categoria}
-                               on:adicionarIngrediente={adicionarIngrediente}
-                               on:removerIngrediente={removerIngrediente}/>
-                {/each}
-            </ul>
-
-            <div class="buscar-receitas">
-                <a href="/receitas">
-                    <Tag ativa="true" tamanho="lg">Buscar Receitas</Tag>
-                </a>
-            </div>
-        </main>
+{#if $minhaLista.length}
+    <div class="minha-lista-container">
+        <MinhaLista/>
+        <div class="divisoria"></div>
     </div>
-    <Rodape />
-</div>
+{/if}
+<main>
+    <Titulo tag="h1">Ingredientes</Titulo>
+    <div class="info">
+        <p>
+            Selecione abaixo os ingredientes que você deseja usar nesta refeição:
+        </p>
+        <p>
+            *Atenção: consideramos que você tenha em casa sal, pimenta e água.
+        </p>
+    </div>
+
+    <ul class="categorias">
+        {#each categorias as categoria (categoria.nome)}
+            <li>
+                <Categoria {categoria}/>
+            </li>
+        {/each}
+    </ul>
+
+    <div class="buscar-receitas">
+        <a href="/receitas">
+            <Tag ativa="true" tamanho="lg">Buscar Receitas</Tag>
+        </a>
+    </div>
+</main>
 
 <style>
-    .container-principal {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    .estilo-principal {
-        text-align: center;
-        padding: 0 5vw 3.375rem;
-        flex: 1;
-    }
-
     .minha-lista-container {
         margin-bottom: 2rem;
     }
