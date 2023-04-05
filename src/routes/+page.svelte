@@ -1,25 +1,24 @@
 <script lang="ts">
     import "../app.css";
-    import MinhaLista from "$lib/components/MinhaLista.svelte";
-    import Titulo from "$component/Titulo.svelte";
+    import Titulo from "$component/compartilhados/Titulo.svelte";
     import categorias from "$lib/json/categorias.json";
-    import Categoria from "$component/Categoria.svelte";
-    import Tag from "$component/Tag.svelte";
+    import Categoria from "$component/paginas/index/Categoria.svelte";
+    import Tag from "$component/compartilhados/Tag.svelte";
+    import {beforeNavigate} from "$app/navigation";
     import {minhaLista} from "../lib/stores/minhaLista";
+    
+    $: listaVazia = $minhaLista.length === 0;
 
+    beforeNavigate((navigation) => {
+        if (listaVazia && navigation.to?.url.pathname === '/receitas') {
+            navigation.cancel();
+        }
+    })
 </script>
 
 <svelte:head>
     <title>Alura Cook</title>
 </svelte:head>
-
-
-{#if $minhaLista.length}
-    <div class="minha-lista-container">
-        <MinhaLista/>
-        <div class="divisoria"></div>
-    </div>
-{/if}
 <main>
     <Titulo tag="h1">Ingredientes</Titulo>
     <div class="info">
@@ -41,23 +40,17 @@
 
     <div class="buscar-receitas">
         <a href="/receitas">
-            <Tag ativa="true" tamanho="lg">Buscar Receitas</Tag>
+            <Tag
+                    ativa="true"
+                    tamanho="lg"
+                    desabilitada={listaVazia}
+            >Buscar Receitas
+            </Tag>
         </a>
     </div>
 </main>
 
 <style>
-    .minha-lista-container {
-        margin-bottom: 2rem;
-    }
-
-    .divisoria {
-        width: 40vw;
-        height: 2px;
-        background-color: var(--verde);
-        margin: 0 auto;
-    }
-
     .info {
         margin-bottom: 3.375rem;
     }
