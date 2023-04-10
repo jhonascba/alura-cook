@@ -6,7 +6,8 @@
     import Tag from "$component/compartilhados/Tag.svelte";
     import {beforeNavigate} from "$app/navigation";
     import {minhaLista} from "../lib/stores/minhaLista";
-    
+    import TagLink from "$component/compartilhados/TagLink.svelte";
+
     $: listaVazia = $minhaLista.length === 0;
 
     beforeNavigate((navigation) => {
@@ -39,14 +40,7 @@
     </ul>
 
     <div class="buscar-receitas">
-        <a href="/receitas">
-            <Tag
-                    ativa="true"
-                    tamanho="lg"
-                    desabilitada={listaVazia}
-            >Buscar Receitas
-            </Tag>
-        </a>
+        <TagLink href="/receitas" desabilitada={listaVazia}>Buscar Receitas</TagLink>
     </div>
 </main>
 
