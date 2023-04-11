@@ -1,9 +1,7 @@
 <script lang="ts">
-    import "../app.css";
     import Titulo from "$component/compartilhados/Titulo.svelte";
     import categorias from "$lib/json/categorias.json";
     import Categoria from "$component/paginas/index/Categoria.svelte";
-    import Tag from "$component/compartilhados/Tag.svelte";
     import {beforeNavigate} from "$app/navigation";
     import {minhaLista} from "../lib/stores/minhaLista";
     import TagLink from "$component/compartilhados/TagLink.svelte";

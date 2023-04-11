@@ -1,9 +1,9 @@
 <script>
+    import "../app.css";
     import Cabecalho from "$component/paginas/layout/Cabecalho.svelte";
     import Rodape from "$component/paginas/layout/Rodape.svelte";
     import MinhaLista from "$component/paginas/layout/MinhaLista.svelte";
     import {minhaLista} from "$store/minhaLista";
-
 </script>
 
 <div class="container-principal">
